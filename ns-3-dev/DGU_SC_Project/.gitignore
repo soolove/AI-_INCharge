@@ -1,0 +1,4 @@
+# ns-3의 .gitignore가 *.log를 무시하지만, TCN 학습 기록(checkpoints/*.log)은 올린다
+!*.log
+# 최소 실행(QUICK=1 run_tcn_v3.sh) 결과물
+/checkpoints/quick/

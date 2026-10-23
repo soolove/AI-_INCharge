@@ -1,0 +1,32 @@
+Resume learning rate: 0.001 -> 0.0001
+Device=cuda; dataset=v2; features=['Traffic_demand_mbps', 'Ue_count', 'Isac_density', 'Hour_sin', 'Hour_cos']; RF=61; tau_c=0.5; tau_p=0.9; lambda=1.0; sizes={'train': 943326, 'val': 69876, 'test': 69876}
+Epoch 61: val loss=0.0673; central RMSE=19.3263, MAE=10.2611; peak cover=0.895, deficit=1.5457, over=16.7727 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 62: val loss=0.0670; central RMSE=19.2305, MAE=10.2222; peak cover=0.898, deficit=1.5044, over=16.9985 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 63: val loss=0.0669; central RMSE=19.2022, MAE=10.2279; peak cover=0.895, deficit=1.5318, over=16.5780 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 64: val loss=0.0665; central RMSE=19.1988, MAE=10.1943; peak cover=0.893, deficit=1.5028, over=16.5478 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 65: val loss=0.0663; central RMSE=19.1282, MAE=10.1704; peak cover=0.896, deficit=1.4234, over=17.0361 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 66: val loss=0.0664; central RMSE=19.0894, MAE=10.1548; peak cover=0.894, deficit=1.5180, over=16.4529 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 67: val loss=0.0665; central RMSE=19.1171, MAE=10.1613; peak cover=0.892, deficit=1.5515, over=16.1930 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 68: val loss=0.0665; central RMSE=19.1595, MAE=10.1745; peak cover=0.893, deficit=1.5319, over=16.3848 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 69: val loss=0.0663; central RMSE=19.0797, MAE=10.1371; peak cover=0.893, deficit=1.4942, over=16.5776 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 70: val loss=0.0661; central RMSE=19.0138, MAE=10.1267; peak cover=0.897, deficit=1.4779, over=16.5878 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 71: val loss=0.0662; central RMSE=19.0410, MAE=10.1414; peak cover=0.897, deficit=1.4900, over=16.5145 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 72: val loss=0.0662; central RMSE=19.0432, MAE=10.1354; peak cover=0.899, deficit=1.4637, over=16.7128 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 73: val loss=0.0663; central RMSE=19.0643, MAE=10.1345; peak cover=0.878, deficit=1.6298, over=15.3525 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 74: val loss=0.0664; central RMSE=19.0596, MAE=10.1361; peak cover=0.893, deficit=1.5460, over=16.2701 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 75: val loss=0.0661; central RMSE=19.0631, MAE=10.1341; peak cover=0.888, deficit=1.5401, over=16.0243 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 76: val loss=0.0661; central RMSE=19.0162, MAE=10.1346; peak cover=0.898, deficit=1.4809, over=16.5247 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 77: val loss=0.0661; central RMSE=19.0213, MAE=10.1298; peak cover=0.893, deficit=1.5206, over=16.2004 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 78: val loss=0.0660; central RMSE=18.9706, MAE=10.1113; peak cover=0.900, deficit=1.4378, over=16.8328 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 79: val loss=0.0659; central RMSE=18.9508, MAE=10.0978; peak cover=0.898, deficit=1.4304, over=16.8957 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 80: val loss=0.0662; central RMSE=19.0640, MAE=10.1387; peak cover=0.896, deficit=1.5069, over=16.3266 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 81: val loss=0.0659; central RMSE=19.0560, MAE=10.1212; peak cover=0.891, deficit=1.4994, over=16.1718 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 82: val loss=0.0659; central RMSE=19.0568, MAE=10.1240; peak cover=0.897, deficit=1.4305, over=16.7240 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 83: val loss=0.0660; central RMSE=19.0188, MAE=10.1200; peak cover=0.899, deficit=1.4664, over=16.6264 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 84: val loss=0.0661; central RMSE=19.0416, MAE=10.1192; peak cover=0.894, deficit=1.5425, over=16.0396 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 85: val loss=0.0657; central RMSE=18.9407, MAE=10.0974; peak cover=0.901, deficit=1.3733, over=17.0793 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 86: val loss=0.0657; central RMSE=18.9367, MAE=10.0961; peak cover=0.893, deficit=1.4861, over=16.1773 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 87: val loss=0.0656; central RMSE=18.8874, MAE=10.0795; peak cover=0.890, deficit=1.4947, over=16.0415 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 88: val loss=0.0657; central RMSE=18.8986, MAE=10.0813; peak cover=0.895, deficit=1.4505, over=16.5218 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 89: val loss=0.0659; central RMSE=19.0174, MAE=10.1086; peak cover=0.888, deficit=1.5026, over=16.2087 Mbps; persist RMSE=34.8822; saved last.pt
+Epoch 90: val loss=0.0657; central RMSE=18.9177, MAE=10.1007; peak cover=0.894, deficit=1.4595, over=16.2804 Mbps; persist RMSE=34.8822; saved last.pt

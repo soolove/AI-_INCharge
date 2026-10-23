@@ -1,0 +1,293 @@
+# Copyright (c) 2022 Centre Tecnologic de Telecomunicacions de Catalunya (CTTC)
+#
+# SPDX-License-Identifier: GPL-2.0-only
+
+stages:
+  - code-linting
+  - build
+  - documentation
+  - deploy
+
+workflow:
+  auto_cancel:
+    on_new_commit: interruptible
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      when: always
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_COMMIT_BRANCH
+
+variables:
+  NS3_RELEASE_VERSION: master
+  NS3_REPOSITORY_URL: https://gitlab.com/nsnam/ns-3-dev
+  CMAKE_VERSION: 3.25.2
+
+###################### BUILD STAGE #############################################
+
+# Defines the steps to run the tests
+# Inherit with "extends: .base-build" and remember to set
+# the following variables: COMPILER (g++, clang++, ...) and
+# MODE (debug, default, release)
+.base-build:
+  stage: build
+  script:
+    - git clone -b $NS3_RELEASE_VERSION --depth=1 $NS3_REPOSITORY_URL
+    - mkdir -p $CCACHE_BASEDIR_VALUE
+    - export CCACHE_BASEDIR=${PWD}
+    - export CCACHE_DIR=${PWD}/$CCACHE_BASEDIR_VALUE
+    - ln -s ${PWD} ns-3-dev/contrib/nr
+    - pushd ns-3-dev
+    - git log -1
+    - CXX=$COMPILER CXXFLAGS="$FLAGS" ./ns3 configure -d $MODE -GNinja --enable-examples --enable-tests --enable-asserts --filter-module-examples-and-tests="nr" $EXTRAS
+    - cmake --version
+    - ccache -z
+    - ./ns3 build
+    - if [ "$MODE" != "debug" ] && [ "$REGRESSION_TEST" != "true" ] && [ "`./utils/ccache-miss-rate.py`" != "0" ]; then
+        ./test.py --no-build --verbose-failed -f TAKES_FOREVER;
+      fi
+    - if [ "$REGRESSION_TEST" == "true" ] && [ "$MODE" == "release" ]; then
+      ./contrib/nr/examples/3gpp-outdoor-calibration/test-outdoor-calibration.py;
+      fi
+    - ccache -s
+    - ./ns3 clean
+    - popd
+    - rm -rf ns-3-dev
+  cache:
+    # Use separate key for each (debug/default/release) jobs because
+    # they run in parallel and will otherwise overwrite each other
+    # cache when they upload the cache archive at the end of the job,
+    # resulting in only the cache for the last finished configuration
+    # being stored.
+    #
+    # Do not distinguish between branches though to avoid
+    # recompilation of all the files when a new branch is created.
+    key: "ccache-$CI_JOB_NAME"
+    paths:
+      - $CCACHE_BASEDIR_VALUE/
+  timeout: 9h
+  interruptible: true
+  variables:
+    CCACHE_BASEDIR_VALUE: ns-3-ccache-storage
+
+# Defines the per-commit jobs. They are executed for any branch
+.base-per-commit-compile:
+  extends: .base-build
+  rules:
+    # Skip per-commit builds on scheduled release pipelines; the dedicated
+    # weekly/daily jobs cover those configurations.
+    - if: '$RELEASE == "weekly" || $RELEASE == "daily"'
+      when: never
+    # Always build when a pipeline is started manually from the web UI.
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+    # Otherwise only build when C++ or CMake sources change.
+    - changes:
+        - "**/*.cc"
+        - "**/*.h"
+        - "**/CMakeLists.txt"
+        - "**/*.cmake"
+  image: archlinux
+  before_script:
+    # Extra fluf to handle CTTC's MITM firewall and self-hosted gitlab instance
+    # - openssl s_client -showcerts -servername gitlab.cttc.es -connect gitlab.cttc.es:443 </dev/null 2>/dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > /etc/ssl/certs/gitlab.cttc.es.pem
+    # - openssl s_client -showcerts -servername doi.org -connect doi.org:443 </dev/null 2>/dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > /etc/ssl/certs/firewall.cttc.pem
+    # - update-ca-trust
+    # Proceed to normal behavior
+    - pacman-key --init
+    - pacman -Sy
+    - pacman -S --noconfirm archlinux-keyring
+    - pacman -Su --noconfirm base-devel gcc clang libc++ ninja ccache git python python-pip openssh eigen
+    - python3 -m venv ns3env
+    - source ./ns3env/bin/activate
+    - pip install cmake==$CMAKE_VERSION
+
+per-commit-clang-debug:
+  extends: .base-per-commit-compile
+  variables:
+    MODE: debug
+    COMPILER: clang++
+
+per-commit-clang-release:
+  extends: .base-per-commit-compile
+  variables:
+    MODE: release
+    COMPILER: clang++
+
+per-commit-clang-release-libc++:
+  extends: .base-per-commit-compile
+  variables:
+    MODE: release
+    COMPILER: clang++
+    FLAGS: -stdlib=libc++
+
+per-commit-gcc-debug:
+  extends: .base-per-commit-compile
+  variables:
+    MODE: debug
+    COMPILER: g++
+
+per-commit-gcc-default:
+  extends: .base-per-commit-compile
+  variables:
+    MODE: default
+    COMPILER: g++
+  tags:
+    - CTTC
+
+per-commit-gcc-release-no-lte:
+  extends: .base-per-commit-compile
+  variables:
+    MODE: release
+    COMPILER: g++
+    EXTRAS: --disable-module=lte
+
+per-commit-gcc-release-sanitizers:
+  extends: .base-per-commit-compile
+  # Sanitizers only need to re-run on C++ source changes, not CMake changes.
+  rules:
+    - if: '$RELEASE == "weekly" || $RELEASE == "daily"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+    - changes:
+        - "**/*.cc"
+        - "**/*.h"
+  variables:
+    MODE: release
+    COMPILER: g++
+    EXTRAS: --enable-sanitizers
+  tags:
+    - CTTC
+
+weekly-sionna:
+  stage: build
+  image: ubuntu:24.04
+  rules:
+    - if: $RELEASE == "weekly"
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      allow_failure: true
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: manual
+      allow_failure: true
+  before_script:
+    - apt update
+    - apt upgrade --yes
+    - DEBIAN_FRONTEND=noninteractive apt install --no-install-recommends --yes
+      ca-certificates
+      g++ ninja-build build-essential
+      git
+      libboost-all-dev
+      libeigen3-dev
+      libgsl-dev gsl-bin
+      python3 python3-dev python3-pip python3-venv
+    - python3 -m venv ns3env
+    - source ./ns3env/bin/activate
+    - pip install cmake==$CMAKE_VERSION sionna==1.2.0 sionna-rt==1.2.0 pybind11==2.11.1 cppyy==3.5.0
+  script:
+    - git clone -b $NS3_RELEASE_VERSION --depth=1 $NS3_REPOSITORY_URL
+    - ln -s ${PWD} ns-3-dev/contrib/nr
+    - pushd ns-3-dev
+    - ./ns3 configure -G Ninja --enable-python-bindings --enable-examples --filter-module-examples-and-tests=nr
+    - ./ns3 run cttc-nr-demo-sionna-rt
+    - popd
+  timeout: 3h
+  interruptible: true
+
+documentation:
+  stage: documentation
+  before_script:
+    - apt-get update
+    - DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
+    - apt-get install -y ccache g++ doxygen graphviz make imagemagick dia
+      texlive texlive-font-utils latexmk texlive texlive-science texlive-formats-extra texlive-base
+      fonts-freefont-otf fonts-freefont-ttf git libeigen3-dev libsqlite3-dev dvipng
+      python3 python3-dev python3-pip python3-venv python3-sphinx python3-sphinx-rtd-theme python3-jinja2 python3-pygments
+    - python3 -m venv ns3env
+    - source ./ns3env/bin/activate
+    # seqdiag renders the .seqdiag figures. Its stock blockdiag backend (3.0.0)
+    # is unmaintained and breaks on Pillow >= 10 (getsize()/ANTIALIAS were
+    # removed), so install the maintained yuzutech/blockdiag fork instead: it
+    # works with the current Pillow wheel, so no Pillow pin or from-source build
+    # is needed. setuptools < 81 is kept only so the stock seqdiag 3.0.0 sdist
+    # still installs; reportlab is the seqdiag PDF backend; cmake comes from pip.
+    - pip install seqdiag==3.0.0 "git+https://github.com/yuzutech/blockdiag.git" reportlab "setuptools<81" cmake==$CMAKE_VERSION
+    # blockdiag only autodetects Japanese fonts, so the reportlab PDF backend
+    # needs a font pointed at explicitly (fonts-freefont-ttf installed above).
+    - printf '[seqdiag]\nfontpath = /usr/share/fonts/truetype/freefont/FreeSans.ttf\n' > "$HOME/.blockdiagrc"
+    # Relax ImageMagick's policy so the EPS/PDF coders work, independent of the
+    # installed major version (the policy path is ImageMagick-6 or -7).
+    - for policy in /etc/ImageMagick-*/policy.xml ; do
+      [ -f "$policy" ] || continue ;
+      sed -i "s/EPS,PDF,//g" "$policy" ;
+      sed -i "s/none/read\ |\ write/g" "$policy" ;
+      done
+  image: ubuntu:24.04
+  script:
+    # Setup ccache
+    - mkdir -p $CCACHE_BASEDIR_VALUE
+    - export CCACHE_BASEDIR=${PWD}
+    - export CCACHE_DIR=${PWD}/$CCACHE_BASEDIR_VALUE
+    - rm -Rf ns-3-dev
+    # Clone ns-3 and configure then extract introspected doxygen
+    - git clone -b $NS3_RELEASE_VERSION --depth=1 $NS3_REPOSITORY_URL
+    - ln -s ${PWD} ns-3-dev/contrib/nr
+    - pushd ns-3-dev
+    - ./ns3 configure --enable-examples --enable-tests --filter-module-examples-and-tests=nr
+    - ./ns3 build nr-print-introspected-doxygen
+    - ./ns3 run nr-print-introspected-doxygen --no-build --quiet > contrib/nr/doc/introspected-doxygen.h
+    - popd
+    # Export nr version for documentation
+    - export NRVERSION="nr-`git describe --tags`"
+    - mkdir -p public/manual
+    # Treat Sphinx warnings (missing figures, broken refs) as errors and
+    # stop the build at the first one
+    - SPHINXSTRICT="-W"
+    # Build NR manual
+    - pushd doc
+    - make latexpdf SPHINXOPTS="$SPHINXSTRICT" && mv ./build/latex/nrmodule.pdf ../public/
+    - make html SPHINXOPTS="$SPHINXSTRICT" && mv ./build/html/* ../public/manual
+    # Build doxygen
+    - doxygen doxygen.conf && mv ./doc/html/ ../public/
+    - popd
+    # Build tutorial
+    - pushd tutorial
+    - make latexpdf SPHINXOPTS="$SPHINXSTRICT" && mv ./build/latex/cttc-nr-demo-tutorial.pdf ../public/
+    - popd
+    # Verify that the expected documentation outputs were actually generated
+    - test -s public/nrmodule.pdf
+    - test -s public/manual/nr-module.html
+    - test -s public/html/index.html
+    - test -s public/cttc-nr-demo-tutorial.pdf
+    # Copy FEATURES.md to preview it 5G-LENA website in FEATURES section
+    - pushd ns-3-dev/contrib/nr
+    - cp FEATURES.md public/FEATURES.md
+    - popd
+  artifacts:
+    paths:
+      - public
+  cache:
+    key: "ccache-$CI_JOB_NAME"
+    paths:
+      - $CCACHE_BASEDIR_VALUE/
+  timeout: 9h
+  interruptible: true
+  variables:
+    CCACHE_BASEDIR_VALUE: ns-3-ccache-storage
+
+pages:
+  stage: deploy
+  dependencies:
+    - documentation
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  script:
+    - echo "Deploying the documentation"
+  artifacts:
+    paths:
+      - public
+
+include:
+  - '.gitlab-ci-clang.yml'
+  - '.gitlab-ci-gcc.yml'
+  - '.gitlab-ci-code-linting.yml'
+  - '.gitlab-ci-mac.yml'

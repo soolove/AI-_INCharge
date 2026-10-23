@@ -1,0 +1,1215 @@
+{
+  "up": 0.03,
+  "down": 0.02,
+  "val": {
+    "reward": -0.5498983775672364,
+    "saving_pct": 28.868473508230455,
+    "shortage_pct": 3.5595900292706535,
+    "drop_pct": 0.27882036959834966,
+    "overload_pct": 2.6170267489711967,
+    "term_energy": 0.35565763245884763,
+    "term_qos": 0.14198713301948201,
+    "term_overload": 0.05225361208890674,
+    "drop_sampled_pct": 0.27882036959834966,
+    "outage_events": 248.5,
+    "outage_events_long": NaN,
+    "outage_sample_sec": 60.0
+  },
+  "reward_config": {
+    "w_energy": 0.0625,
+    "w_qos": 0.625,
+    "w_overload": 0.3125,
+    "u_th": 0.8,
+    "static_power_ratio": 0.3
+  },
+  "grid": [
+    {
+      "up": 0.005,
+      "down": 0.001,
+      "val": {
+        "reward": -0.5752232095327339,
+        "saving_pct": 20.393036265432098,
+        "shortage_pct": 3.1550465570107513,
+        "drop_pct": 0.07926234319620169,
+        "overload_pct": 2.5591563786008265,
+        "term_energy": 0.39803481867283946,
+        "term_qos": 0.1257619823924249,
+        "term_overload": 0.051426408467469396,
+        "drop_sampled_pct": 0.07926234319620169,
+        "outage_events": 86.83333333333333,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.005,
+      "down": 0.0025,
+      "val": {
+        "reward": -0.5748447848854242,
+        "saving_pct": 20.480806327160494,
+        "shortage_pct": 3.1562012494870313,
+        "drop_pct": 0.0802345111090436,
+        "overload_pct": 2.5591563786008265,
+        "term_energy": 0.39759596836419747,
+        "term_qos": 0.1258224080537573,
+        "term_overload": 0.051426408467469396,
+        "drop_sampled_pct": 0.0802345111090436,
+        "outage_events": 88.0,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.0075,
+      "down": 0.001,
+      "val": {
+        "reward": -0.5747843439083321,
+        "saving_pct": 20.48530735596708,
+        "shortage_pct": 3.155096081254829,
+        "drop_pct": 0.08024556725579908,
+        "overload_pct": 2.5591563786008265,
+        "term_energy": 0.39757346322016457,
+        "term_qos": 0.12578621108280832,
+        "term_overload": 0.05142466960535907,
+        "drop_sampled_pct": 0.08024556725579908,
+        "outage_events": 88.0,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.0075,
+      "down": 0.0025,
+      "val": {
+        "reward": -0.5744028979776546,
+        "saving_pct": 20.574765303497944,
+        "shortage_pct": 3.1563238126168027,
+        "drop_pct": 0.0813977662636117,
+        "overload_pct": 2.5591563786008265,
+        "term_energy": 0.3971261734825102,
+        "term_qos": 0.1258520548897853,
+        "term_overload": 0.05142466960535907,
+        "drop_sampled_pct": 0.0813977662636117,
+        "outage_events": 89.0,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.0075,
+      "down": 0.005,
+      "val": {
+        "reward": -0.5698459813746451,
+        "saving_pct": 21.61337770061729,
+        "shortage_pct": 3.1709792913328165,
+        "drop_pct": 0.09350062311979207,
+        "overload_pct": 2.5591563786008265,
+        "term_energy": 0.3919331114969135,
+        "term_qos": 0.12646953228709165,
+        "term_overload": 0.05144333759063995,
+        "drop_sampled_pct": 0.09350062311979207,
+        "outage_events": 102.83333333333333,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.01,
+      "down": 0.001,
+      "val": {
+        "reward": -0.5725287060275065,
+        "saving_pct": 21.02205504115227,
+        "shortage_pct": 3.1628051846391574,
+        "drop_pct": 0.09057846807899529,
+        "overload_pct": 2.5604423868312787,
+        "term_energy": 0.39488972479423873,
+        "term_qos": 0.1262079468719007,
+        "term_overload": 0.051431034361367124,
+        "drop_sampled_pct": 0.09057846807899529,
+        "outage_events": 97.16666666666667,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.01,
+      "down": 0.0025,
+      "val": {
+        "reward": -0.5725066216726445,
+        "saving_pct": 21.050749099794245,
+        "shortage_pct": 3.167108542869725,
+        "drop_pct": 0.09057846807899529,
+        "overload_pct": 2.5604423868312787,
+        "term_energy": 0.3947462545010288,
+        "term_qos": 0.12632933281024858,
+        "term_overload": 0.051431034361367124,
+        "drop_sampled_pct": 0.09057846807899529,
+        "outage_events": 97.16666666666667,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.01,
+      "down": 0.005,
+      "val": {
+        "reward": -0.5678634485742918,
+        "saving_pct": 22.09161201131687,
+        "shortage_pct": 3.181052767769272,
+        "drop_pct": 0.10251616169012152,
+        "overload_pct": 2.5604423868312787,
+        "term_energy": 0.3895419399434156,
+        "term_qos": 0.1268718062842282,
+        "term_overload": 0.05144970234664802,
+        "drop_sampled_pct": 0.10251616169012152,
+        "outage_events": 111.5,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.01,
+      "down": 0.0075,
+      "val": {
+        "reward": -0.5632155884317979,
+        "saving_pct": 23.128536522633755,
+        "shortage_pct": 3.194192137605297,
+        "drop_pct": 0.11475586717634216,
+        "overload_pct": 2.5604423868312787,
+        "term_energy": 0.38435731738683127,
+        "term_qos": 0.12739018109254235,
+        "term_overload": 0.05146808995242421,
+        "drop_sampled_pct": 0.11475586717634216,
+        "outage_events": 125.0,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.015,
+      "down": 0.001,
+      "val": {
+        "reward": -0.5698971776686601,
+        "saving_pct": 21.69552147633745,
+        "shortage_pct": 3.181676275376335,
+        "drop_pct": 0.10219786007434019,
+        "overload_pct": 2.5604423868312787,
+        "term_energy": 0.39152239261831284,
+        "term_qos": 0.1269231443389983,
+        "term_overload": 0.051451640711349,
+        "drop_sampled_pct": 0.10219786007434019,
+        "outage_events": 105.5,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.015,
+      "down": 0.0025,
+      "val": {
+        "reward": -0.5699060378868434,
+        "saving_pct": 21.71802662037037,
+        "shortage_pct": 3.185985387691874,
+        "drop_pct": 0.10219786007434019,
+        "overload_pct": 2.5604423868312787,
+        "term_energy": 0.3914098668981482,
+        "term_qos": 0.12704453027734616,
+        "term_overload": 0.051451640711349,
+        "drop_sampled_pct": 0.10219786007434019,
+        "outage_events": 105.5,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.015,
+      "down": 0.005,
+      "val": {
+        "reward": -0.565900961925554,
+        "saving_pct": 22.590663580246925,
+        "shortage_pct": 3.19327998872202,
+        "drop_pct": 0.1141431214215385,
+        "overload_pct": 2.5604423868312787,
+        "term_energy": 0.38704668209876547,
+        "term_qos": 0.12740250561186153,
+        "term_overload": 0.05145177421492686,
+        "drop_sampled_pct": 0.1141431214215385,
+        "outage_events": 121.5,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.015,
+      "down": 0.0075,
+      "val": {
+        "reward": -0.5612617965115891,
+        "saving_pct": 23.64615483539095,
+        "shortage_pct": 3.2075423062221007,
+        "drop_pct": 0.12800103679484498,
+        "overload_pct": 2.5604423868312787,
+        "term_energy": 0.3817692258230452,
+        "term_qos": 0.12802240886784086,
+        "term_overload": 0.05147016182070305,
+        "drop_sampled_pct": 0.12800103679484498,
+        "outage_events": 134.5,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.015,
+      "down": 0.01,
+      "val": {
+        "reward": -0.5601672049960923,
+        "saving_pct": 24.190779320987662,
+        "shortage_pct": 3.26102659454938,
+        "drop_pct": 0.13898045781739135,
+        "overload_pct": 2.5604423868312787,
+        "term_energy": 0.3790461033950616,
+        "term_qos": 0.12964688993779036,
+        "term_overload": 0.05147421166324034,
+        "drop_sampled_pct": 0.13898045781739135,
+        "outage_events": 142.83333333333334,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.02,
+      "down": 0.001,
+      "val": {
+        "reward": -0.5688532871586627,
+        "saving_pct": 21.981899434156386,
+        "shortage_pct": 3.1887349518608477,
+        "drop_pct": 0.11497257220984992,
+        "overload_pct": 2.5604423868312787,
+        "term_energy": 0.3900905028292181,
+        "term_qos": 0.12731031318761044,
+        "term_overload": 0.05145247114183413,
+        "drop_sampled_pct": 0.11497257220984992,
+        "outage_events": 112.5,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.02,
+      "down": 0.0025,
+      "val": {
+        "reward": -0.5688734010067024,
+        "saving_pct": 22.00215406378602,
+        "shortage_pct": 3.1930325376938242,
+        "drop_pct": 0.11497257220984992,
+        "overload_pct": 2.5604423868312787,
+        "term_energy": 0.3899892296810699,
+        "term_qos": 0.1274317001837983,
+        "term_overload": 0.05145247114183413,
+        "drop_sampled_pct": 0.11497257220984992,
+        "outage_events": 112.5,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.02,
+      "down": 0.005,
+      "val": {
+        "reward": -0.5642986320297085,
+        "saving_pct": 23.0345775462963,
+        "shortage_pct": 3.206177708595655,
+        "drop_pct": 0.13043898439596646,
+        "overload_pct": 2.5604423868312787,
+        "term_energy": 0.3848271122685185,
+        "term_qos": 0.1280083918383508,
+        "term_overload": 0.05146312792283924,
+        "drop_sampled_pct": 0.13043898439596646,
+        "outage_events": 130.5,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.02,
+      "down": 0.0075,
+      "val": {
+        "reward": -0.5597960947275975,
+        "saving_pct": 24.064750514403297,
+        "shortage_pct": 3.22129300021877,
+        "drop_pct": 0.14634400566929825,
+        "overload_pct": 2.5604423868312787,
+        "term_energy": 0.37967624742798334,
+        "term_qos": 0.12864786933460412,
+        "term_overload": 0.05147197796500996,
+        "drop_sampled_pct": 0.14634400566929825,
+        "outage_events": 144.66666666666666,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.02,
+      "down": 0.01,
+      "val": {
+        "reward": -0.5588197020414732,
+        "saving_pct": 24.992525077160497,
+        "shortage_pct": 3.3460623394990527,
+        "drop_pct": 0.15774094236824301,
+        "overload_pct": 2.5604423868312787,
+        "term_energy": 0.37503737461419734,
+        "term_qos": 0.1323071300502137,
+        "term_overload": 0.051475197377062125,
+        "drop_sampled_pct": 0.15774094236824301,
+        "outage_events": 151.33333333333334,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.03,
+      "down": 0.001,
+      "val": {
+        "reward": -0.5642026687216419,
+        "saving_pct": 23.162294238683103,
+        "shortage_pct": 3.2126533199221545,
+        "drop_pct": 0.14536205360566015,
+        "overload_pct": 2.5604423868312787,
+        "term_energy": 0.38418852880658444,
+        "term_qos": 0.1285468715543425,
+        "term_overload": 0.05146726836071499,
+        "drop_sampled_pct": 0.14536205360566015,
+        "outage_events": 127.33333333333333,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.03,
+      "down": 0.0025,
+      "val": {
+        "reward": -0.5642579348436739,
+        "saving_pct": 23.184799382716022,
+        "shortage_pct": 3.218749649452889,
+        "drop_pct": 0.14536205360566015,
+        "overload_pct": 2.5604423868312787,
+        "term_energy": 0.3840760030864198,
+        "term_qos": 0.12871466339653911,
+        "term_overload": 0.05146726836071499,
+        "drop_sampled_pct": 0.14536205360566015,
+        "outage_events": 127.33333333333333,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.03,
+      "down": 0.005,
+      "val": {
+        "reward": -0.5598239800478009,
+        "saving_pct": 24.277424125514404,
+        "shortage_pct": 3.23646408364468,
+        "drop_pct": 0.16927929296176647,
+        "overload_pct": 2.5604423868312787,
+        "term_energy": 0.3786128793724279,
+        "term_qos": 0.129741310421584,
+        "term_overload": 0.051469790253788755,
+        "drop_sampled_pct": 0.16927929296176647,
+        "outage_events": 150.5,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.03,
+      "down": 0.0075,
+      "val": {
+        "reward": -0.555630676957038,
+        "saving_pct": 25.25414737654322,
+        "shortage_pct": 3.2534665984803137,
+        "drop_pct": 0.1875407325427181,
+        "overload_pct": 2.5604423868312787,
+        "term_energy": 0.3737292631172837,
+        "term_qos": 0.13041371335866955,
+        "term_overload": 0.051487700481084586,
+        "drop_sampled_pct": 0.1875407325427181,
+        "outage_events": 170.16666666666666,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.03,
+      "down": 0.01,
+      "val": {
+        "reward": -0.5549415209849874,
+        "saving_pct": 26.118907536008233,
+        "shortage_pct": 3.377848147274769,
+        "drop_pct": 0.19961468485260556,
+        "overload_pct": 2.5604423868312787,
+        "term_energy": 0.3694054623199587,
+        "term_qos": 0.1340451387718919,
+        "term_overload": 0.05149091989313675,
+        "drop_sampled_pct": 0.19961468485260556,
+        "outage_events": 178.5,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.03,
+      "down": 0.02,
+      "val": {
+        "reward": -0.5498983775672364,
+        "saving_pct": 28.868473508230455,
+        "shortage_pct": 3.5595900292706535,
+        "drop_pct": 0.27882036959834966,
+        "overload_pct": 2.6170267489711967,
+        "term_energy": 0.35565763245884763,
+        "term_qos": 0.14198713301948201,
+        "term_overload": 0.05225361208890674,
+        "drop_sampled_pct": 0.27882036959834966,
+        "outage_events": 248.5,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.05,
+      "down": 0.001,
+      "val": {
+        "reward": -0.6170272717720166,
+        "saving_pct": 25.79033243312757,
+        "shortage_pct": 4.617252540155175,
+        "drop_pct": 0.22654431861182026,
+        "overload_pct": 2.746913580246917,
+        "term_energy": 0.3710483378343623,
+        "term_qos": 0.1869663275169521,
+        "term_overload": 0.05901260642070238,
+        "drop_sampled_pct": 0.22654431861182026,
+        "outage_events": 186.66666666666666,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.05,
+      "down": 0.0025,
+      "val": {
+        "reward": -0.6160070999427857,
+        "saving_pct": 25.997379758230448,
+        "shortage_pct": 4.621062397332822,
+        "drop_pct": 0.22562016441687927,
+        "overload_pct": 2.746913580246917,
+        "term_energy": 0.3700131012088479,
+        "term_qos": 0.1869813923132357,
+        "term_overload": 0.05901260642070238,
+        "drop_sampled_pct": 0.22562016441687927,
+        "outage_events": 176.16666666666666,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.05,
+      "down": 0.005,
+      "val": {
+        "reward": -0.612695941729189,
+        "saving_pct": 27.025864840534993,
+        "shortage_pct": 4.667666543809319,
+        "drop_pct": 0.24993325485628048,
+        "overload_pct": 2.7520576131687284,
+        "term_energy": 0.3648706757973252,
+        "term_qos": 0.18871746196163944,
+        "term_overload": 0.05910780397022433,
+        "drop_sampled_pct": 0.24993325485628048,
+        "outage_events": 198.0,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.05,
+      "down": 0.0075,
+      "val": {
+        "reward": -0.610645045292042,
+        "saving_pct": 28.044222608024693,
+        "shortage_pct": 4.7291025366325465,
+        "drop_pct": 0.2713094473693252,
+        "overload_pct": 2.7533436213991807,
+        "term_energy": 0.3597788869598766,
+        "term_qos": 0.19166838270272477,
+        "term_overload": 0.059197775629440647,
+        "drop_sampled_pct": 0.2713094473693252,
+        "outage_events": 218.5,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.05,
+      "down": 0.01,
+      "val": {
+        "reward": -0.6119958603177781,
+        "saving_pct": 28.49770126028807,
+        "shortage_pct": 4.837528423624934,
+        "drop_pct": 0.29005979426541867,
+        "overload_pct": 2.7533436213991807,
+        "term_energy": 0.3575114936985597,
+        "term_qos": 0.19528659098977777,
+        "term_overload": 0.059197775629440647,
+        "drop_sampled_pct": 0.29005979426541867,
+        "outage_events": 232.16666666666666,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.05,
+      "down": 0.02,
+      "val": {
+        "reward": -0.6183661869795883,
+        "saving_pct": 30.6688850308642,
+        "shortage_pct": 5.123876039170279,
+        "drop_pct": 0.36028789632395014,
+        "overload_pct": 2.842078189300416,
+        "term_energy": 0.346655574845679,
+        "term_qos": 0.21069580722886258,
+        "term_overload": 0.06101480490504655,
+        "drop_sampled_pct": 0.36028789632395014,
+        "outage_events": 293.6666666666667,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.05,
+      "down": 0.03,
+      "val": {
+        "reward": -0.6401256916718646,
+        "saving_pct": 32.23580568415638,
+        "shortage_pct": 5.624187904531847,
+        "drop_pct": 0.43703636204351287,
+        "overload_pct": 3.095421810699593,
+        "term_energy": 0.3388209715792181,
+        "term_qos": 0.23550651056476354,
+        "term_overload": 0.06579820952788303,
+        "drop_sampled_pct": 0.43703636204351287,
+        "outage_events": 356.0,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.075,
+      "down": 0.001,
+      "val": {
+        "reward": -0.6094515706729015,
+        "saving_pct": 28.188818158436206,
+        "shortage_pct": 4.697471155228941,
+        "drop_pct": 0.3142009959530869,
+        "overload_pct": 2.7520576131687284,
+        "term_energy": 0.35905590920781894,
+        "term_qos": 0.1912804528573936,
+        "term_overload": 0.05911520860768877,
+        "drop_sampled_pct": 0.3142009959530869,
+        "outage_events": 239.5,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.075,
+      "down": 0.0025,
+      "val": {
+        "reward": -0.609119355659737,
+        "saving_pct": 28.26139724794238,
+        "shortage_pct": 4.714321222428176,
+        "drop_pct": 0.30408778365583994,
+        "overload_pct": 2.7520576131687284,
+        "term_energy": 0.35869301376028817,
+        "term_qos": 0.19131113329176,
+        "term_overload": 0.05911520860768877,
+        "drop_sampled_pct": 0.30408778365583994,
+        "outage_events": 217.33333333333334,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.075,
+      "down": 0.005,
+      "val": {
+        "reward": -0.6072976958896087,
+        "saving_pct": 28.89266653806584,
+        "shortage_pct": 4.739058455120702,
+        "drop_pct": 0.3240488614628057,
+        "overload_pct": 2.758487654320992,
+        "term_energy": 0.35553666730967093,
+        "term_qos": 0.19248395300780838,
+        "term_overload": 0.059277075572129405,
+        "drop_sampled_pct": 0.3240488614628057,
+        "outage_events": 234.33333333333334,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.075,
+      "down": 0.0075,
+      "val": {
+        "reward": -0.608839378636367,
+        "saving_pct": 29.433915252057616,
+        "shortage_pct": 4.817597424047756,
+        "drop_pct": 0.34212159827292604,
+        "overload_pct": 2.7687757201646135,
+        "term_energy": 0.35283042373971196,
+        "term_qos": 0.1964455949339038,
+        "term_overload": 0.0595633599627512,
+        "drop_sampled_pct": 0.34212159827292604,
+        "outage_events": 251.16666666666666,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.075,
+      "down": 0.01,
+      "val": {
+        "reward": -0.6105176118778627,
+        "saving_pct": 29.857011959876548,
+        "shortage_pct": 4.928371385385123,
+        "drop_pct": 0.36473066267985216,
+        "overload_pct": 2.7687757201646135,
+        "term_energy": 0.3507149402006173,
+        "term_qos": 0.2002353483312559,
+        "term_overload": 0.05956732334598966,
+        "drop_sampled_pct": 0.36473066267985216,
+        "outage_events": 264.5,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.075,
+      "down": 0.02,
+      "val": {
+        "reward": -0.6598393817535678,
+        "saving_pct": 32.529497813786,
+        "shortage_pct": 6.036880307212154,
+        "drop_pct": 0.4677504613376136,
+        "overload_pct": 3.2343106995884825,
+        "term_energy": 0.33735251093107,
+        "term_qos": 0.2540937986422308,
+        "term_overload": 0.06839307218026709,
+        "drop_sampled_pct": 0.4677504613376136,
+        "outage_events": 352.6666666666667,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.075,
+      "down": 0.03,
+      "val": {
+        "reward": -0.6409902087111535,
+        "saving_pct": 33.229407793209866,
+        "shortage_pct": 5.720069770021547,
+        "drop_pct": 0.5344830650973352,
+        "overload_pct": 3.146862139917701,
+        "term_energy": 0.3338529610339507,
+        "term_qos": 0.24086958976160402,
+        "term_overload": 0.06626765791559891,
+        "drop_sampled_pct": 0.5344830650973352,
+        "outage_events": 400.8333333333333,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.075,
+      "down": 0.05,
+      "val": {
+        "reward": -0.6631862467292715,
+        "saving_pct": 35.102398405349795,
+        "shortage_pct": 6.345370359251208,
+        "drop_pct": 0.6671347127465991,
+        "overload_pct": 3.351337448559676,
+        "term_energy": 0.324488007973251,
+        "term_qos": 0.2690147493402676,
+        "term_overload": 0.06968348941575288,
+        "drop_sampled_pct": 0.6671347127465991,
+        "outage_events": 511.3333333333333,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.1,
+      "down": 0.001,
+      "val": {
+        "reward": -0.6063388090565273,
+        "saving_pct": 29.645463605967077,
+        "shortage_pct": 4.7544404974077015,
+        "drop_pct": 0.42333435165705885,
+        "overload_pct": 2.7494855967078227,
+        "term_energy": 0.3517726819701647,
+        "term_qos": 0.19537615781146486,
+        "term_overload": 0.05918996927489775,
+        "drop_sampled_pct": 0.42333435165705885,
+        "outage_events": 282.3333333333333,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.1,
+      "down": 0.0025,
+      "val": {
+        "reward": -0.607003852150449,
+        "saving_pct": 29.673595036008233,
+        "shortage_pct": 4.783009376219085,
+        "drop_pct": 0.4246316713944813,
+        "overload_pct": 2.7494855967078227,
+        "term_energy": 0.3516320248199589,
+        "term_qos": 0.1961818580555924,
+        "term_overload": 0.05918996927489775,
+        "drop_sampled_pct": 0.4246316713944813,
+        "outage_events": 285.3333333333333,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.1,
+      "down": 0.005,
+      "val": {
+        "reward": -0.6056048316980939,
+        "saving_pct": 30.240724665637867,
+        "shortage_pct": 4.8120119371552255,
+        "drop_pct": 0.44672832694803316,
+        "overload_pct": 2.7559156378600864,
+        "term_energy": 0.34879637667181074,
+        "term_qos": 0.19751501701916188,
+        "term_overload": 0.05929343800712127,
+        "drop_sampled_pct": 0.44672832694803316,
+        "outage_events": 302.6666666666667,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.1,
+      "down": 0.0075,
+      "val": {
+        "reward": -0.6079923075202547,
+        "saving_pct": 30.621061599794235,
+        "shortage_pct": 4.889500264325142,
+        "drop_pct": 0.4616275915884192,
+        "overload_pct": 2.7662037037037077,
+        "term_energy": 0.3468946920010289,
+        "term_qos": 0.20151322853996692,
+        "term_overload": 0.05958438697925897,
+        "drop_sampled_pct": 0.4616275915884192,
+        "outage_events": 316.6666666666667,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.1,
+      "down": 0.01,
+      "val": {
+        "reward": -0.6103649042604345,
+        "saving_pct": 30.99352173353908,
+        "shortage_pct": 5.004552742697434,
+        "drop_pct": 0.48138418225356655,
+        "overload_pct": 2.7662037037037077,
+        "term_energy": 0.34503239133230457,
+        "term_qos": 0.205743562425436,
+        "term_overload": 0.05958895050269402,
+        "drop_sampled_pct": 0.48138418225356655,
+        "outage_events": 327.1666666666667,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.1,
+      "down": 0.02,
+      "val": {
+        "reward": -0.6476657100037649,
+        "saving_pct": 33.191149048353914,
+        "shortage_pct": 5.8327298816381274,
+        "drop_pct": 0.5728678059278893,
+        "overload_pct": 3.110853909465026,
+        "term_energy": 0.33404425475823046,
+        "term_qos": 0.2478339464118309,
+        "term_overload": 0.06578750883370357,
+        "drop_sampled_pct": 0.5728678059278893,
+        "outage_events": 400.6666666666667,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.1,
+      "down": 0.03,
+      "val": {
+        "reward": -0.6473021787049024,
+        "saving_pct": 34.09810635288067,
+        "shortage_pct": 5.889949496859589,
+        "drop_pct": 0.6452253062188863,
+        "overload_pct": 3.1558641975308697,
+        "term_energy": 0.3295094682355966,
+        "term_qos": 0.2514548190446078,
+        "term_overload": 0.06633789142469779,
+        "drop_sampled_pct": 0.6452253062188863,
+        "outage_events": 465.5,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.1,
+      "down": 0.05,
+      "val": {
+        "reward": -0.6808997246718863,
+        "saving_pct": 36.04086291152265,
+        "shortage_pct": 6.789276908436882,
+        "drop_pct": 0.7807922406607585,
+        "overload_pct": 3.3950617283950675,
+        "term_energy": 0.31979568544238685,
+        "term_qos": 0.2896216589205684,
+        "term_overload": 0.07148238030893088,
+        "drop_sampled_pct": 0.7807922406607585,
+        "outage_events": 563.3333333333334,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.15,
+      "down": 0.001,
+      "val": {
+        "reward": -0.6070753768480998,
+        "saving_pct": 31.971370241769538,
+        "shortage_pct": 5.016100276040169,
+        "drop_pct": 0.5700549284247068,
+        "overload_pct": 2.8497942386831316,
+        "term_energy": 0.3401431487911523,
+        "term_qos": 0.2066277040264792,
+        "term_overload": 0.06030452403046823,
+        "drop_sampled_pct": 0.5700549284247068,
+        "outage_events": 356.0,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.15,
+      "down": 0.0025,
+      "val": {
+        "reward": -0.6076932567686949,
+        "saving_pct": 32.011316872427976,
+        "shortage_pct": 5.047668003608561,
+        "drop_pct": 0.5701443987514255,
+        "overload_pct": 2.8497942386831316,
+        "term_energy": 0.33994341563786007,
+        "term_qos": 0.20744531710036662,
+        "term_overload": 0.06030452403046823,
+        "drop_sampled_pct": 0.5701443987514255,
+        "outage_events": 355.8333333333333,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.15,
+      "down": 0.005,
+      "val": {
+        "reward": -0.6050196433062478,
+        "saving_pct": 32.585198045267475,
+        "shortage_pct": 5.044243390801302,
+        "drop_pct": 0.5830356280551484,
+        "overload_pct": 2.8626543209876587,
+        "term_energy": 0.3370740097736626,
+        "term_qos": 0.20743254096633493,
+        "term_overload": 0.06051309256625037,
+        "drop_sampled_pct": 0.5830356280551484,
+        "outage_events": 370.5,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.15,
+      "down": 0.0075,
+      "val": {
+        "reward": -0.6092854921707406,
+        "saving_pct": 32.832192001028794,
+        "shortage_pct": 5.13405835545939,
+        "drop_pct": 0.5999093314164909,
+        "overload_pct": 2.8716563786008273,
+        "term_energy": 0.3358390399948559,
+        "term_qos": 0.21273780143902984,
+        "term_overload": 0.060708650736854795,
+        "drop_sampled_pct": 0.5999093314164909,
+        "outage_events": 382.6666666666667,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.15,
+      "down": 0.01,
+      "val": {
+        "reward": -0.6120807480595455,
+        "saving_pct": 33.23390882201646,
+        "shortage_pct": 5.206492280289165,
+        "drop_pct": 0.6239198531576041,
+        "overload_pct": 2.885802469135807,
+        "term_energy": 0.3338304558899176,
+        "term_qos": 0.21732663781985098,
+        "term_overload": 0.060923654349776944,
+        "drop_sampled_pct": 0.6239198531576041,
+        "outage_events": 395.3333333333333,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.15,
+      "down": 0.02,
+      "val": {
+        "reward": -0.6673492638491875,
+        "saving_pct": 35.39158950617284,
+        "shortage_pct": 6.36452418353952,
+        "drop_pct": 0.7772996365610326,
+        "overload_pct": 3.2677469135802526,
+        "term_energy": 0.3230420524691357,
+        "term_qos": 0.2755839751000239,
+        "term_overload": 0.0687232362800276,
+        "drop_sampled_pct": 0.7772996365610326,
+        "outage_events": 526.1666666666666,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.15,
+      "down": 0.03,
+      "val": {
+        "reward": -0.6695817316095646,
+        "saving_pct": 36.37450167181069,
+        "shortage_pct": 6.447924162624496,
+        "drop_pct": 0.8620266379503846,
+        "overload_pct": 3.317901234567907,
+        "term_energy": 0.3181274916409465,
+        "term_qos": 0.28191217537824714,
+        "term_overload": 0.0695420645903709,
+        "drop_sampled_pct": 0.8620266379503846,
+        "outage_events": 586.0,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.15,
+      "down": 0.05,
+      "val": {
+        "reward": -0.6962663176065261,
+        "saving_pct": 37.92229295267491,
+        "shortage_pct": 7.105342504852243,
+        "drop_pct": 0.9969143084077121,
+        "overload_pct": 3.5661008230452738,
+        "term_energy": 0.31038853523662546,
+        "term_qos": 0.3108993847200939,
+        "term_overload": 0.0749783976498066,
+        "drop_sampled_pct": 0.9969143084077121,
+        "outage_events": 688.8333333333334,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.15,
+      "down": 0.1,
+      "val": {
+        "reward": -0.7223105352840634,
+        "saving_pct": 40.72812178497943,
+        "shortage_pct": 7.9280383284821525,
+        "drop_pct": 1.2819856492321293,
+        "overload_pct": 3.811728395061735,
+        "term_energy": 0.29635939107510295,
+        "term_qos": 0.3467511277038229,
+        "term_overload": 0.07920001650513768,
+        "drop_sampled_pct": 1.2819856492321293,
+        "outage_events": 890.8333333333334,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.2,
+      "down": 0.001,
+      "val": {
+        "reward": -0.6321894529561928,
+        "saving_pct": 34.13355195473252,
+        "shortage_pct": 5.723641634380421,
+        "drop_pct": 0.7020043892787204,
+        "overload_pct": 3.109567901234573,
+        "term_energy": 0.3293322402263373,
+        "term_qos": 0.2371008114646829,
+        "term_overload": 0.06575640126517247,
+        "drop_sampled_pct": 0.7020043892787204,
+        "outage_events": 423.1666666666667,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.2,
+      "down": 0.0025,
+      "val": {
+        "reward": -0.6321894529561928,
+        "saving_pct": 34.13355195473252,
+        "shortage_pct": 5.723641634380421,
+        "drop_pct": 0.7020043892787204,
+        "overload_pct": 3.109567901234573,
+        "term_energy": 0.3293322402263373,
+        "term_qos": 0.2371008114646829,
+        "term_overload": 0.06575640126517247,
+        "drop_sampled_pct": 0.7020043892787204,
+        "outage_events": 423.1666666666667,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.2,
+      "down": 0.005,
+      "val": {
+        "reward": -0.6315011598108684,
+        "saving_pct": 34.63710455246913,
+        "shortage_pct": 5.752252967687796,
+        "drop_pct": 0.7289593387504555,
+        "overload_pct": 3.12757201646091,
+        "term_energy": 0.3268144772376543,
+        "term_qos": 0.23855660611310203,
+        "term_overload": 0.06613007646011211,
+        "drop_sampled_pct": 0.7289593387504555,
+        "outage_events": 436.0,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.2,
+      "down": 0.0075,
+      "val": {
+        "reward": -0.6375593917126373,
+        "saving_pct": 34.94767554012347,
+        "shortage_pct": 5.849016583036232,
+        "drop_pct": 0.7616092879765243,
+        "overload_pct": 3.2343106995884825,
+        "term_energy": 0.32526162229938266,
+        "term_qos": 0.24491034087152586,
+        "term_overload": 0.06738742854172869,
+        "drop_sampled_pct": 0.7616092879765243,
+        "outage_events": 461.3333333333333,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.2,
+      "down": 0.01,
+      "val": {
+        "reward": -0.6403936439071013,
+        "saving_pct": 35.24474344135804,
+        "shortage_pct": 5.9101646702928505,
+        "drop_pct": 0.7781092785866672,
+        "overload_pct": 3.253600823045273,
+        "term_energy": 0.32377628279320986,
+        "term_qos": 0.24886365656604736,
+        "term_overload": 0.06775370454784403,
+        "drop_sampled_pct": 0.7781092785866672,
+        "outage_events": 471.3333333333333,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.2,
+      "down": 0.02,
+      "val": {
+        "reward": -0.691731667540684,
+        "saving_pct": 37.076099537037045,
+        "shortage_pct": 6.9757847589645605,
+        "drop_pct": 0.9293691249537795,
+        "overload_pct": 3.4747942386831334,
+        "term_energy": 0.31461950231481484,
+        "term_qos": 0.30367648065577885,
+        "term_overload": 0.07343568457009035,
+        "drop_sampled_pct": 0.9293691249537795,
+        "outage_events": 596.1666666666666,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.2,
+      "down": 0.03,
+      "val": {
+        "reward": -0.6961093453578417,
+        "saving_pct": 37.99037101337448,
+        "shortage_pct": 7.097517503903052,
+        "drop_pct": 1.0251269864830594,
+        "overload_pct": 3.585390946502064,
+        "term_energy": 0.31004814493312766,
+        "term_qos": 0.3106936119594432,
+        "term_overload": 0.07536758846527082,
+        "drop_sampled_pct": 1.0251269864830594,
+        "outage_events": 668.1666666666666,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.2,
+      "down": 0.05,
+      "val": {
+        "reward": -0.7019149448376617,
+        "saving_pct": 39.12463027263374,
+        "shortage_pct": 7.288757778306746,
+        "drop_pct": 1.1551858007358902,
+        "overload_pct": 3.654835390946508,
+        "term_energy": 0.3043768486368313,
+        "term_qos": 0.32111452902252713,
+        "term_overload": 0.07642356717830327,
+        "drop_sampled_pct": 1.1551858007358902,
+        "outage_events": 762.1666666666666,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    },
+    {
+      "up": 0.2,
+      "down": 0.1,
+      "val": {
+        "reward": -0.7323238261140541,
+        "saving_pct": 41.757169495884774,
+        "shortage_pct": 8.170227404913105,
+        "drop_pct": 1.4590357516005523,
+        "overload_pct": 3.8554526748971263,
+        "term_energy": 0.2912141525205762,
+        "term_qos": 0.36044592714621865,
+        "term_overload": 0.08066374644725921,
+        "drop_sampled_pct": 1.4590357516005523,
+        "outage_events": 937.6666666666666,
+        "outage_events_long": NaN,
+        "outage_sample_sec": 60.0
+      }
+    }
+  ]
+}

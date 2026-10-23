@@ -1,0 +1,26 @@
+# smart_campus_5G conda 환경 (Python 3.10).
+# 로컬 환경에서 실제로 쓰는 버전을 고정했다. 로컬에서는 psutil/matplotlib/scipy/fonttools가
+# ~/.local에 깔려 있어 conda export에 빠지므로 여기서 명시한다.
+# ns3ai_gym_env / ns3ai_python_utils는 프로젝트 폴더를 가리키는 editable 설치라 여기 넣지 않는다
+# (설치 절차는 README_env.md 1절 "ns3-ai 설치").
+name: smart_campus_5G
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu126
+      - torch==2.13.0+cu126
+      - torchvision==0.28.0+cu126
+      - numpy==2.2.6
+      - protobuf==3.20.3        # ns3-ai의 구형 messages_pb2.py 때문에 4.x 이상 금지
+      - gymnasium==1.3.0
+      - psutil==6.1.0           # ns3ai_utils가 ns-3 프로세스 정리에 사용
+      - matplotlib==3.9.3
+      - scipy==1.14.1
+      - fonttools==4.55.0       # PDF 생성 시 한글 폰트 추출
+      - fpdf2==2.8.8
+      - pillow==12.2.0
+      - tensorboard==2.20.0     # RL 학습 곡선 기록 (rl-env_v4/train_ppo.py)
+      - setuptools<81           # tensorboard 2.20이 쓰는 pkg_resources가 setuptools 81부터 제거됨

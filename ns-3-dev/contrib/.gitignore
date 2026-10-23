@@ -1,0 +1,9 @@
+# Ignore everything by default, contrib sources are coming from other places
+/*
+
+# Include specific files that should be tracked by Git
+!/.gitignore
+
+# 이 저장소는 5G-LENA(nr)와 ns3-ai(ai)를 함께 올린다 (각 폴더의 .gitignore는 그대로 적용)
+!/ai/
+!/nr/

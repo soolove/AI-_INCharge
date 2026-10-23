@@ -1,0 +1,2 @@
+# collect_day.py가 만드는 하루 기록(npz, CSV, meta.json)은 올리지 않는다. 만드는 법은 README_이음5G.md
+/data_이음5G/*/

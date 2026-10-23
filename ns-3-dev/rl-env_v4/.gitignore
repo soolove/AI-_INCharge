@@ -1,0 +1,6 @@
+# ns-3의 .gitignore가 *.log를 무시하지만, 학습·평가 기록(runs/*.log)은 올린다
+!*.log
+# 에피소드 입력 파일 작업 폴더
+/run/
+# 최소 실행(run_exp_eum5g.sh quick) 결과물
+/runs/quick/

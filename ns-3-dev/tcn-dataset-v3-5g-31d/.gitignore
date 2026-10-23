@@ -1,0 +1,4 @@
+# build_tcn_dataset.py가 만드는 데이터(CSV, npz, 그림)는 올리지 않는다. 만드는 법은 README.md
+*
+!.gitignore
+!README.md

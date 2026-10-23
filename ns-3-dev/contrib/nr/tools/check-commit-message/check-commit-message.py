@@ -1,0 +1,459 @@
+#! /usr/bin/env python3
+
+# Copyright (c) 2024 Centre Tecnologic de Telecomunicacions de Catalunya (CTTC)
+#
+# SPDX-License-Identifier: GPL-2.0-only
+
+import argparse
+import glob
+import itertools
+import os
+import re
+import shutil
+import sys
+from collections import defaultdict
+
+# Check for dependencies that are not in the standard Python libraries
+try:
+    import git.exc
+    from git import Repo
+except ImportError:
+    raise Exception("Missing pip package 'GitPython'.")
+
+if shutil.which("git") is None:
+    raise Exception("Missing program 'git'.")
+
+# Define global variables
+CTTC_LENA_NR_REPOSITORY = "https://gitlab.com/cttc-lena/nr"
+COMMIT_STYLE_REGEX = r"^([a-z0-9\-\*]+(?:, [a-z0-9\-\*]+)*):((?: \(\w+ #\d+\))?) ([A-Z][^\n]*$)"
+
+
+# Get all file names without extension
+def get_files_dictionary(list_of_files):
+    files_ext = list_of_files
+    files_wext = list(map(lambda x: os.path.splitext(os.path.basename(x))[0], files_ext))
+    files_wext = list(map(lambda x: x[1:] if x[0] == "." else x, files_wext))
+    files_wext = list(map(lambda x: x.lower(), files_wext))
+    return dict(zip(files_wext, files_ext))
+
+
+CURRENT_FILE_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
+NR_TOP_LEVEL_DIRECTORY = os.path.abspath(f"{CURRENT_FILE_DIRECTORY}/../../")
+FILES = get_files_dictionary(
+    glob.glob("./**/*", root_dir=NR_TOP_LEVEL_DIRECTORY, recursive=True)
+    + glob.glob("./**/.*", root_dir=NR_TOP_LEVEL_DIRECTORY, recursive=True)
+)
+
+
+# Function definitions
+def ensure_upstream_remote(repo: Repo):
+    remotes = list(repo.remotes)
+    # First search if cttc-lena/nr is already a remote
+    for remote in remotes:
+        remote_urls = list(remote.urls)
+        if CTTC_LENA_NR_REPOSITORY in remote_urls:
+            return remote
+    # If it isn't, add the new remote
+    used_remote_names = list(map(lambda x: x.name, remotes))
+    possible_remote_names_to_use = ["origin", "upstream", "cttc-nr"]
+    remote_name_to_use = list(
+        filter(lambda x: x not in used_remote_names, possible_remote_names_to_use)
+    )[0]
+    return repo.create_remote(remote_name_to_use, url=CTTC_LENA_NR_REPOSITORY)
+
+
+def ensure_master_is_up_to_date(repo, remote, update_master_to_upstream=False):
+    # Fetch the latest commits from upstream
+    remote.fetch()
+
+    # Create master branch from upstream
+    master_branch = list(filter(lambda x: "master" in x.name, list(repo.heads)))
+    if update_master_to_upstream:
+        if master_branch:
+            repo.delete_head(master_branch[0].name, force=True)
+        repo.create_head("master", remote.refs.master)
+        try:
+            remote.pull("master", ff_only=True)
+        except git.exc.GitCommandError as e:
+            if "Not possible to fast-forward" in e.stderr:
+                print(f"Rebase HEAD on top of 'master'")
+                exit(-1)
+            raise e
+    else:
+        if not master_branch:
+            repo.create_head("master", remote.refs.master)
+
+
+def get_new_commits(repo):
+    head_commits = list(repo.iter_commits(rev="HEAD"))
+    upstream_commits = list(repo.iter_commits(rev="master"))
+    diff_commits = list(filter(lambda x: x not in upstream_commits, head_commits))
+    return diff_commits
+
+
+class BaseCheck:
+    def __init__(self, args=None):
+        self.omit_commit_number = args.omit_commit_number
+
+    # To be redefined by the class children
+    def check(self, commit_info):
+        return False
+
+    def description(self):
+        return None
+
+    def diagnostic_message(self, commit_info):
+        return ""
+
+    # Virtual methods
+    def execute_check(self, commit_info):
+        return self.check(commit_info)
+
+    def execute_description(self):
+        return self.description()
+
+    def execute_diagnostic(self, commit_info):
+        commit_number = f"'{commit_info.hex}' "
+        if self.omit_commit_number:
+            commit_number = ""
+        msg = f"  Commit {commit_number}with Message: '{commit_info.header}'\n"
+        return msg + self.diagnostic_message(commit_info)
+
+
+class LengthCheck(BaseCheck):
+    MAX = 100
+
+    def check(self, commit_info):
+        return len(commit_info.header) <= LengthCheck.MAX
+
+    def description(self):
+        return f"Checked rule: commits should have no more than 100 characters."
+
+    def diagnostic_message(self, commit_info):
+        commit_number = f"{commit_info.hex} "
+        if self.omit_commit_number:
+            commit_number = ""
+        diff = len(commit_info.header) - LengthCheck.MAX
+        msg = f"  \tError: commit {commit_number}has {LengthCheck.MAX+diff} characters\n"
+        msg += f"  \t\t{commit_info.header}\n"
+        msg += f"  \t\t{' '*(len(commit_info.header)-diff)}{'^'*diff}"
+        return msg
+
+
+class MatchesFormatCheck(BaseCheck):
+    def check(self, commit_info):
+        return commit_info.matches is not None
+
+    def description(self):
+        msg = (
+            "Checked rule: commit should match the format style 'nr: (fixes #1) Correct commit'.\n"
+        )
+        msg += "                                               prefix-^ optional-^ description-^"
+        return msg
+
+    def diagnostic_message(self, commit_info):
+        header_with_newline = commit_info.header + "\n"
+        errors = []
+        # A big if
+        once = 1
+        while once:
+            once -= 1
+            # Check if there is a colon separating the prefix from the message
+            try:
+                prefix_separator_pos = header_with_newline.index(":")
+            except ValueError:
+                # There is not much more we can check at this point
+                errors.append("missing prefix separator ':'")
+                break
+
+            # If there is a prefix separator, get the prefix
+            prefix = header_with_newline[:prefix_separator_pos]
+            message = header_with_newline[prefix_separator_pos + 1 :]
+
+            # Check for upper case letters
+            if prefix != prefix.lower():
+                errors.append("prefix contains upper case letters")
+
+            # Check for missing whitespaces after commas
+            if prefix.count(",") != prefix.count(", "):
+                errors.append("prefix has missing whitespaces after commas")
+
+            # Check if there are dots
+            if prefix.count("."):
+                errors.append(
+                    "prefix should not contain file extensions or the hidden file initial dot '.'"
+                )
+
+            # Check if there is an optional fixes field
+            if message.count("fixes"):
+                # Separate optional field from the rest of the message
+                fixes_pos = message.index("fixes")
+                # Check if it is missing the left parenthesis
+                if message[:fixes_pos].count("(") == 0:
+                    errors.append("missing optional field left parenthesis")
+
+                # Check if it is missing the right parenthesis
+                if message[fixes_pos:].count("(") == 0:
+                    errors.append("missing optional field right parenthesis")
+
+                # Check if we have a space and a hashtag after fixes
+                fixes_end_pos = fixes_pos + len("fixes")
+                if message[fixes_end_pos : fixes_end_pos + 2] != " #":
+                    errors.append("missing space and/or hashtag after 'fixes'")
+            else:
+                # Check if 'fixes' is spelled as 'fixes'
+                if message.count("fix #"):
+                    errors.append("optional field should be '(fixes #issue)'")
+
+            # Check if parenthesis are matching
+            if message.count("(") != message.count(")"):
+                errors.append("mismatching parenthesis")
+
+            # If there is a closing parenthesis, get the commit description after it
+            if "(fixes" in message and message.count(")"):
+                message = message[message.index(")") + 1 :]
+
+            # Remove whitespaces and newlines
+            message = message.strip()
+            if message[0].upper() != message[0]:
+                errors.append("description should start with upper case letters")
+            pass
+
+        msg = f"  \tErrors:"
+        msg += "".join(map(lambda x: f"\n\t\t{x}", errors))
+        return msg
+
+
+class CheckPrefix(BaseCheck):
+    def _parse_components(self, commit_info):
+        raw = commit_info.matches.group(1)
+        return [c.strip() for c in raw.split(",") if c.strip()]
+
+    def _changed_paths(self, commit_info):
+        return list(commit_info.commit.stats.files.keys())
+
+    @staticmethod
+    def _basename_without_ext(path):
+        base = os.path.basename(path)
+        name, _ = os.path.splitext(base)
+        return name.lstrip(".").lower()
+
+    @staticmethod
+    def _common_parent_dir(paths):
+        # Fallback when stats are empty (e.g., merge or empty commit)
+        if not paths:
+            return "nr"
+        dirs = [os.path.dirname(p) or "." for p in paths]
+        common = os.path.commonpath(dirs)
+        if common in ("", "."):
+            return "nr"
+        return os.path.basename(common)
+
+    def _unique_basenames(self, paths):
+        basenames = {self._basename_without_ext(p) for p in paths}
+        return sorted(basenames)
+
+    @staticmethod
+    def _longest_common_prefix(strings):
+        if not strings:
+            return ""
+        prefix = strings[0]
+        for s in strings[1:]:
+            i = 0
+            max_i = min(len(prefix), len(s))
+            while i < max_i and prefix[i] == s[i]:
+                i += 1
+            prefix = prefix[:i]
+            if not prefix:
+                break
+        return prefix
+
+    def _valid_prefix_representations(self, paths):
+        basenames = self._unique_basenames(paths)
+        n_unique = len(basenames)
+
+        if n_unique == 0:
+            return []
+
+        if n_unique <= 3:
+            canonical = basenames
+            canonical_prefix_str = ", ".join(canonical)
+            canonical_valid = len(canonical_prefix_str) <= 40
+
+            # Hyphen-aware wildcard when filenames share a prefix
+            lcp = self._longest_common_prefix(basenames)
+            wildcard = None
+            if lcp:
+                # Truncate LCP back to last '-' so we only keep full segments
+                last_dash = lcp.rfind("-")
+                if last_dash > 0:
+                    common_segment = lcp[:last_dash]  # e.g., "nr-epc"
+                    # Collapse the bare "nr-*" wildcard to the module prefix "nr".
+                    candidate = "nr" if common_segment == "nr" else common_segment + "-*"
+                    if len(candidate) <= 40:
+                        wildcard = [candidate]
+
+            representations = []
+            if canonical_valid:
+                representations.append(canonical)
+            if wildcard is not None:
+                representations.append(wildcard)
+
+            return representations
+
+        # More than 3 distinct filenames: only directory fallback is allowed
+        return []
+
+    def check(self, commit_info):
+        if commit_info.matches is None:
+            return False
+
+        paths = self._changed_paths(commit_info)
+        given_components = self._parse_components(commit_info)
+
+        # First, try filename-based prefixes (≤ 3 distinct basenames)
+        valid_sets = self._valid_prefix_representations(paths)
+
+        if valid_sets:
+            sorted_given = sorted(given_components)
+            for allowed in valid_sets:
+                if sorted_given == sorted(allowed):
+                    return True
+            # There *was* a valid filename-based representation, but the user
+            # did not use any of them.
+            return False
+
+        # Otherwise, require closest common parent directory prefix
+        parent_dir = self._common_parent_dir(paths)
+        return len(given_components) == 1 and given_components[0] == parent_dir
+
+    def description(self):
+        msg = (
+            "  Checked rules:\n"
+            "   1.Commits touching up to 3 distinct files should use their "
+            "lowercase, extension-less names as the prefix, provided that the "
+            "resulting prefix is at most 40 characters long. When those names "
+            "share a common prefix, a single '<common-prefix>-*' wildcard is also allowed "
+            "(the bare 'nr-*' wildcard is collapsed to 'nr').\n"
+            "   2.Commits touching more than 3 distinct files, or for which no "
+            "filename-based prefix fits within 40 characters, should use their "
+            "closest common parent directory as a prefix."
+        )
+        return msg
+
+    def diagnostic_message(self, commit_info):
+        if commit_info.matches is None:
+            return "  \tError: incorrect format style. See MatchesFormatCheck results."
+
+        paths = self._changed_paths(commit_info)
+        given_components = self._parse_components(commit_info)
+
+        # If it already passes, do not print anything.
+        if self.check(commit_info):
+            return None
+
+        basenames = self._unique_basenames(paths)
+        valid_sets = self._valid_prefix_representations(paths)
+
+        if valid_sets:
+            # Prefer the most explicit representation (full filenames) when valid.
+            canonical = basenames
+            canonical_prefix_str = ", ".join(canonical)
+            canonical_valid = len(canonical_prefix_str) <= 40
+
+            if canonical_valid:
+                expected_prefix = canonical_prefix_str
+            else:
+                # Fall back to the first wildcard representation.
+                expected_prefix = ", ".join(valid_sets[0])
+        else:
+            parent_dir = self._common_parent_dir(paths)
+            expected_prefix = parent_dir
+
+        return f'  \tError: prefix should be "{expected_prefix}"'
+
+
+def retrieve_commits_info():
+    try:
+        repo = Repo(NR_TOP_LEVEL_DIRECTORY)
+    except git.exc.InvalidGitRepositoryError:
+        raise "The current directory does not contain a .git directory"
+
+    # Retrieve the upstream remote
+    upstream_remote = ensure_upstream_remote(repo)
+
+    # Fetch the latest master branch
+    ensure_master_is_up_to_date(repo, upstream_remote)
+
+    class CommitInfo:
+        def __init__(self, commit):
+            self.commit = commit
+            self.hex = commit.hexsha[:8]
+            self.header = commit.message.split("\n")[0]
+            self.matches = re.match(COMMIT_STYLE_REGEX, self.header + "\n")
+
+    # Get new commits when compared to upstream and extract info
+    return list(map(CommitInfo, get_new_commits(repo)))
+
+
+def main(argv):
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--omit-commit-number", action="store_true")
+    args = parser.parse_known_args(argv)[0]
+    commits_info = retrieve_commits_info()
+
+    checks = [
+        LengthCheck(args),
+        MatchesFormatCheck(args),
+        CheckPrefix(args),
+    ]
+
+    passed = 0
+    failed = 0
+    failed_tests = {}
+    for check in checks:
+        failed_tests[check] = []
+        for commit_info in commits_info:
+            result = check.execute_check(commit_info)
+            # Skipped for not being relevant
+            if result is None:
+                continue
+            # Successfully passed
+            if result is True:
+                passed += 1
+                continue
+
+            # Failed checks
+            failed += 1
+            failed_tests[check].append(commit_info)
+
+    print(f"Passed: {passed}, Failed: {failed}")
+    for check, failed_commits in failed_tests.items():
+        # Skip checks with no failures
+        if not failed_commits:
+            continue
+        print(f"Commits that failed check '{check.__class__.__name__}'")
+        print(check.execute_description())
+        for commit in failed_commits:
+            print(check.execute_diagnostic(commit))
+
+    exit(failed)
+
+
+# To add new test cases, apply patch
+#   git am ./tools/check-commit-message/test/test-cases.patch
+# Create new commits, then update the patch file
+#   git format-patch StartingHex^..FinalHex --stdout > ./tools/check-commit-message/test/test-cases.patch
+# Then run
+#   ./tools/check-commit-message/check-commit-message.py --omit-commit-number > ./tools/check-commit-message/test/reference-output.txt
+# Commit the patch and reference output changes, then drop the test case commits (StartingHex^..FinalHex)
+
+# To simply run the tests, apply the patch
+#   git am ./tools/check-commit-message/test/test-cases.patch
+# Then run
+#   ./tools/check-commit-message/check-commit-message.py --omit-commit-number > out.txt
+# And compare the outputs
+#   diff ./tools/check-commit-message/test/reference-output.txt out.txt
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

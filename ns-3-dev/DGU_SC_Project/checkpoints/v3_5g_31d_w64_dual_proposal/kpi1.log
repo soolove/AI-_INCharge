@@ -1,0 +1,9 @@
+checkpoint: checkpoints/v3_5g_31d_w64_dual_proposal/seed_0_finetune/best.pt (epoch 87)
+dataset:    ../tcn-dataset-v3-5g-31d/tcn_dataset.npz, test days (13, 14), 69876 windows
+KPI1 MAPE (Y >= 145 Mbps = 0.25 x C_max): 9.5%  (share of values 15.8%, of traffic 61.1%)
+  t+1 5.7%, t+15 13.1%
+  일반일과: 10.8%
+  시험기간: 9.0%
+  축제: 8.6%
+WAPE (all values): 13.8%
+persistence MAPE (Y >= 72.5 Mbps): 20.9%

@@ -1,0 +1,8 @@
+# 저장소에 넣지 않는 것: 대회 문서·발표 자료, GitHub 정리 전 원본 백업, 개인 VS Code 설정, 주간 회의 자료
+/문서/
+/backup_github정리_20261023/
+/.vscode/
+/Scenario/주간회의/
+
+# 최소 실행(빠른 확인) 결과물
+/ns-3-dev/tcn-dataset-quick/
